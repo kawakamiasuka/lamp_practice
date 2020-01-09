@@ -12,11 +12,11 @@ function get_user($db, $user_id){
     FROM
       users
     WHERE
-      user_id = {$user_id}
+      user_id = :user_id
     LIMIT 1
   ";
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':user_id' => $user_id));
 }
 //usersテーブルから、ユーザー名をもとにユーザー情報を取ってくる
 function get_user_by_name($db, $name){
@@ -29,11 +29,11 @@ function get_user_by_name($db, $name){
     FROM
       users
     WHERE
-      name = '{$name}'
+      name = :name
     LIMIT 1
   ";
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':name' => $name));
 }
 //ユーザー情報の取得ができなかった時、パスワードが間違っていた時を除き＄_SESSIONにユーザーIDを格納し、返り値としてユーザー情報を含んだ配列を返す
 function login_as($db, $name, $password){
