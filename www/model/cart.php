@@ -75,7 +75,7 @@ function insert_cart($db, $item_id, $user_id, $amount = 1){
     VALUES(:item_id, :user_id, :amount)
   ";
 
-  return execute_query($db, $sql, array('item_id' => $item_id, 'user_id' => $usrr_id, ':amount' => $amount));
+  return execute_query($db, $sql, array(':item_id' => $item_id, ':user_id' => $user_id, ':amount' => $amount));
 }
 //カートに入っている特定の商品の数をアップデートする
 function update_cart_amount($db, $cart_id, $amount){
