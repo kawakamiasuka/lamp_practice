@@ -23,9 +23,11 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = ?
+
+      carts.user_id = :user_id
   ";
-  return fetch_all_query($db, $sql, array($user_id));
+  return fetch_all_query($db, $sql,array(':user_id' => $user_id));
+
 }
 //ユーザーのカートの商品の情報を返り値として返す関数（特定の商品の情報）
 function get_user_cart($db, $user_id, $item_id){
@@ -47,12 +49,13 @@ function get_user_cart($db, $user_id, $item_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = ?
+
+      carts.user_id = :user_id
     AND
-      items.item_id = ?
+      items.item_id = :item_id
   ";
 
-  return fetch_query($db, $sql, array($user_id, $item_id));
+  return fetch_query($db, $sql, array(':user_id' => $user_id, ':item_id' => $item_id));
 
 }
 //カートにすでにある商品が追加されたときはその数を増やし、新たに追加される商品ならばカートに商品を追加
@@ -72,10 +75,12 @@ function insert_cart($db, $item_id, $user_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES(?, ?, ?)
+
+    VALUES(:item_id, :user_id, :amount)
   ";
 
-  return execute_query($db, $sql, array($item_id, $user_id, $amount));
+  return execute_query($db, $sql, array(':item_id' => $item_id, ':user_id' => $user_id, ':amount' => $amount));
+
 }
 //カートに入っている特定の商品の数をアップデートする
 function update_cart_amount($db, $cart_id, $amount){
@@ -83,12 +88,14 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = ?
+
+      amount = :amount
     WHERE
-      cart_id = ?
+      cart_id = :cart_id
     LIMIT 1
   ";
-  return execute_query($db, $sql, array($amount, $cart_id));
+  return execute_query($db, $sql, array(':amount' => $amount, ':cart_id' => $cart_id));
+
 }
 //指定したidのカートを削除する
 function delete_cart($db, $cart_id){
@@ -96,11 +103,13 @@ function delete_cart($db, $cart_id){
     DELETE FROM
       carts
     WHERE
-      cart_id = ?
+
+      cart_id = :cart_id
     LIMIT 1
   ";
 
-  return execute_query($db, $sql, array($cart_id));
+  return execute_query($db, $sql, array(':cart_id' => $cart_id));
+
 }
 //商品購入された際の処理。データベースの在庫数を減らす
 function purchase_carts($db, $carts){
@@ -125,10 +134,11 @@ function delete_user_carts($db, $user_id){
     DELETE FROM
       carts
     WHERE
-      user_id = ?
+
+      user_id = :user_id
   ";
 
-  execute_query($db, $sql, array($userr_id));
+  execute_query($db, $sql, array(':user_id' => $user_id));
 }
 
 //籠の中の商品の合計額を返り値として返す
