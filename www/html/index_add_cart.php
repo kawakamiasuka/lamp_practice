@@ -16,6 +16,15 @@ $user = get_login_user($db);
 
 //フォームから送られてきた情報を格納
 $item_id = get_post('item_id');
+$post_token = get_post('token');
+
+//トークンが一致するか確認
+
+if(is_valid_csrf_token($post_token) === false) {
+  redirect_to(LOGIN_URL);
+} else {
+  unset($_SESSION['csrf_token']);
+}
 //商品をカートに追加
 if(add_cart($db,$user['user_id'], $item_id)){
   set_message('カートに商品を追加しました。');

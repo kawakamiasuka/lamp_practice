@@ -20,6 +20,14 @@ if(is_admin($user) === false){
 //$_POST['']　フォームから送られてきた情報を代入
 $item_id = get_post('item_id');
 $changes_to = get_post('changes_to');
+$post_token = get_post('token');
+
+//トークンが一致するかどうか調べる
+if(is_valid_csrf_token($post_token) === false) {
+  redirect_to(LOGIN_URL);
+} else {
+  unset($_SESSION['csrf_token']);
+}
 //公開ステータスを変更する
 if($changes_to === 'open'){
   update_item_status($db, $item_id, ITEM_STATUS_OPEN);

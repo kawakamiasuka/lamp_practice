@@ -11,7 +11,19 @@ if(is_logined() === true){
 //フォームから送られてきた情報を格納
 $name = get_post('name');
 $password = get_post('password');
+
+$post_token = get_post('token');
+
+//トークンの確認
+if(is_valid_csrf_token($post_token) === false) {
+  redirect_to(LOGIN_URL);
+} else {
+  unset($_SESSION['csrf_token']);
+}
+
+
 //データベース接続
+
 $db = get_db_connect();
 
 //ユーザーが入力したユーザ名から、ユーザー情報を取得。ユーザー情報のパスワードと入力されたパスワードが違っていないかを確認。正しければユーザー情報を$userに、ユーザーIDを $_SESSION['user_id']へ格納

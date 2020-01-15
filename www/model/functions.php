@@ -140,3 +140,17 @@ function is_valid_upload_image($image){
 function h ($key) {
   return htmlspecialchars($key, ENT_QUOTES, 'UTF-8');
 }
+//トークンの生成(セッションにトークンを格納して、そのトークンの値を返す関数)
+function get_csrf_token(){
+  $token = get_random_string(30); //30桁のランダムな文字列取得
+  set_session('csrf_token', $token); //$_SESSION['token'] = $token
+  return $token;
+}
+
+//トークンチェック(postされてきたトークンとセッションに格納されているトークンが一致するかどうかを調べる)
+function is_valid_csrf_token($token){
+  if($token === '') {
+    return false;
+  }
+  return $token === get_session('csrf_token');
+}

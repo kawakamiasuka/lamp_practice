@@ -19,6 +19,14 @@ if(is_admin($user) === false){
 }
 //フォームから送られてきたデータを格納
 $item_id = get_post('item_id');
+$post_token = get_post('token');
+
+//トークンが一致するかどうか調べる
+if(is_valid_csrf_token($post_token) === false) {
+  redirect_to(LOGIN_URL);
+} else {
+  unset($_SESSION['csrf_token']);
+}
 
 //該当する商品の情報を削除
 if(destroy_item($db, $item_id) === true){
