@@ -11,6 +11,14 @@ if(is_logined() === true){
 
 $name = get_post('name');
 $password = get_post('password');
+$post_token = get_post('token');
+
+//トークンの確認
+if(is_valid_csrf_token($post_token) === false) {
+  redirect_to(LOGIN_URL);
+} else {
+  unset($_SESSION['csrf_token']);
+}
 
 $db = get_db_connect();
 

@@ -14,5 +14,6 @@ $db = get_db_connect();
 $user = get_login_user($db);
 //公開されている商品情報のみを取得
 $items = get_open_items($db);
+$token = get_csrf_token();
 
 include_once '../view/index_view.php';
