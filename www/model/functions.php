@@ -135,10 +135,11 @@ function is_valid_upload_image($image){
   return true;
 }
 
+//エスケープ関数
+
 function h ($key) {
   return htmlspecialchars($key, ENT_QUOTES, 'UTF-8');
 }
-
 //トークンの生成(セッションにトークンを格納して、そのトークンの値を返す関数)
 function get_csrf_token(){
   $token = get_random_string(30); //30桁のランダムな文字列取得

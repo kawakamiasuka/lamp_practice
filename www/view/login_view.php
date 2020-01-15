@@ -6,7 +6,7 @@ header('X-FRAME-OPTIONS:DENY');
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
   <title>ログイン</title>
-  <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'login.css'); ?>">
+  <link rel="stylesheet" href="<?php print(h(STYLESHEET_PATH . 'login.css')); ?>">
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header.php'; ?>
