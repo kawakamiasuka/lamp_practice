@@ -83,7 +83,7 @@ header('X-FRAME-OPTIONS:DENY');
             <td>
 
               <form method="post" action="admin_change_status.php" class="operation">
-                <?php if(is_open(h($item)) === true){ ?>
+                <?php if(h(is_open($item)) === true){ ?>
                   <input type="submit" value="公開 → 非公開" class="btn btn-secondary">
                   <input type="hidden" name="changes_to" value="close">
                 <?php } else { ?>
