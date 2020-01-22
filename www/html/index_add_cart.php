@@ -25,11 +25,15 @@ if(is_valid_csrf_token($post_token) === false) {
 } else {
   unset($_SESSION['csrf_token']);
 }
+
+
 //商品をカートに追加
 if(add_cart($db,$user['user_id'], $item_id)){
   set_message('カートに商品を追加しました。');
 } else {
   set_error('カートの更新に失敗しました。');
 }
+
+
 
 redirect_to(HOME_URL);
