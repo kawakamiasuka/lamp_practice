@@ -44,11 +44,12 @@ header('X-FRAME-OPTIONS:DENY');
         </div>
       <?php } ?>
       </div>
-      <?php if($now_page !== 1) {?>
+      <?php var_dump($now_page);?>
+      <?php if((int)$now_page !== 1) {?>
       <a href="<?php print "index.php?page=" . ($now_page-1);?>">前へ</a>
       <?php } ?>
 
-      <?php if($now_page !== $pages) {?>
+      <?php if((int)$now_page !== (int)$pages) {?>
       <a href="<?php print "index.php?page=" . ($now_page+1);?>">次へ</a>
       <?php } ?>
       
