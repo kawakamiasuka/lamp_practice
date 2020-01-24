@@ -44,7 +44,6 @@ header('X-FRAME-OPTIONS:DENY');
         </div>
       <?php } ?>
       </div>
-      <?php var_dump($now_page);?>
       <?php if((int)$now_page !== 1) {?>
       <a href="<?php print "index.php?page=" . ($now_page-1);?>">前へ</a>
       <?php } ?>
